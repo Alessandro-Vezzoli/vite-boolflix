@@ -5,12 +5,32 @@
     </div>
     <div class="brand-text pl-3">BOOLFLIX</div>
   </header>
+  <main v-for="card in cards">
+    {{ card.original_title }}
+  </main>
 
   <footer class="bg-color-black">
     <p>CREATO DA VEZZO</p>
   </footer>
 </template>
-<script setup></script>
+<script>
+import axios from "axios";
+export default {
+  data() {
+    return {
+      url: "https://api.themoviedb.org/3/search/movie?query=simpson&api_key=99c41b3e6bab796d423dcb20a0127b84",
+      cards: [],
+    };
+  },
+  mounted() {
+    axios.get(this.url).then((response) => {
+      console.log("ciao");
+      console.log(response.data.results);
+      this.cards = response.data.results;
+    });
+  },
+};
+</script>
 
 <style scoped>
 body {
