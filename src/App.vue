@@ -5,6 +5,11 @@
     </div>
     <div class="brand-text pl-3">BOOLFLIX</div>
   </header>
+  <!-- Aggiunta della barra di ricerca -->
+  <div class="search-bar p-3 bg-color-black">
+    <input type="text" placeholder="Cerca film..." v-model="searchText" />
+    <button @click="searchMovies">Cerca</button>
+  </div>
   <main v-for="card in cards">
     Titolo film: {{ card.title }}<br />
     Titolo originale film: ({{ card.original_title }})<br />
@@ -22,26 +27,38 @@ import axios from "axios";
 export default {
   data() {
     return {
-      url: "https://api.themoviedb.org/3/discover/movie?api_key=99c41b3e6bab796d423dcb20a0127b84",
+      url: "https://api.themoviedb.org/3/movie/popular",
       cards: [],
+      searchText: "",
     };
   },
   mounted() {
-    const options = {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5OWM0MWIzZTZiYWI3OTZkNDIzZGNiMjBhMDEyN2I4NCIsInN1YiI6IjYxZjUwNjgyNWYyZGIxMDBhMmE0NjlmNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.epzWc8RGj-CpbtG1piX0gv8PPFwpxXKQoVkRJ7eFAyA",
-      },
-    };
+    this.fetchMovies();
+  },
+  methods: {
+    fetchMovies() {
+      const options = {
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5OWM0MWIzZTZiYWI3OTZkNDIzZGNiMjBhMDEyN2I4NCIsInN1YiI6IjYxZjUwNjgyNWYyZGIxMDBhMmE0NjlmNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.epzWc8RGj-CpbtG1piX0gv8PPFwpxXKQoVkRJ7eFAyA",
+        },
+      };
 
-    axios
-      .get(this.url, options)
-      .then((response) => {
-        console.log("ciao");
-        console.log(response.data.results);
-        this.cards = response.data.results;
-      })
-      .catch((err) => console.error(err));
+      axios
+        .get(this.url, options)
+        .then((response) => {
+          console.log("ciao");
+          console.log(response.data.results);
+          this.cards = response.data.results;
+        })
+        .catch((err) => console.error(err));
+    },
+    searchMovies() {
+      const searchUrl = `${this.url}?name=${this.searchText}`;
+      console.log(searchUrl);
+
+      this.cards(searchUrl);
+    },
   },
 };
 </script>
@@ -83,5 +100,23 @@ footer {
 }
 .brand-text {
   font-size: 18px;
+}
+.search-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-bar input {
+  width: 70%;
+  padding: 8px;
+}
+
+.search-bar button {
+  background-color: #fff;
+  color: #333;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
 }
 </style>
