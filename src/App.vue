@@ -37,10 +37,11 @@ export default {
   },
   methods: {
     fetchMovies() {
+      const config = require("./config");
+
       const options = {
         headers: {
-          Authorization:
-
+          Authorization: `Bearer ${config.bearerToken}`,
         },
       };
 
