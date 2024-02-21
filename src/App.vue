@@ -28,7 +28,7 @@ import { apiKey, bearerToken } from "./config.js";
 export default {
   data() {
     return {
-      url: "https://api.themoviedb.org/3/movie/popular",
+      url: "https://api.themoviedb.org/3",
       cards: [],
       searchText: "",
     };
@@ -44,8 +44,10 @@ export default {
         },
       };
 
+      const listPopular = `${this.url}/movie/popular`;
+
       axios
-        .get(this.url, options)
+        .get(listPopular)
         .then((response) => {
           console.log("ciao");
           console.log(response.data.results);
@@ -54,10 +56,20 @@ export default {
         .catch((err) => console.error(err));
     },
     searchMovies() {
-      const searchUrl = `${this.url}?name=${this.searchText}`;
+      const searchUrl = `${this.url}/search/movie?query=${this.searchText}`;
       console.log(searchUrl);
 
-      this.cards(searchUrl);
+      axios
+        .get(searchUrl, {
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
+        })
+        .then((response) => {
+          console.log(response.data.results);
+          this.cards = response.data.results;
+        })
+        .catch((err) => console.log(err));
     },
   },
 };
