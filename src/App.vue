@@ -23,6 +23,7 @@
 </template>
 <script>
 import axios from "axios";
+import { apiKey, bearerToken } from "./config.js";
 
 export default {
   data() {
@@ -37,11 +38,9 @@ export default {
   },
   methods: {
     fetchMovies() {
-      const config = "./config";
-
       const options = {
         headers: {
-          Authorization: `Bearer ${config.bearerToken}`,
+          Authorization: `Bearer ${bearerToken}`,
         },
       };
 
