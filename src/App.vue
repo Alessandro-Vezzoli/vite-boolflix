@@ -40,7 +40,7 @@ export default {
       const options = {
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5OWM0MWIzZTZiYWI3OTZkNDIzZGNiMjBhMDEyN2I4NCIsInN1YiI6IjYxZjUwNjgyNWYyZGIxMDBhMmE0NjlmNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.epzWc8RGj-CpbtG1piX0gv8PPFwpxXKQoVkRJ7eFAyA",
+
         },
       };
 
