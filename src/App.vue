@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     fetchMovies() {
-      const config = require("./config");
+      const config = "./config";
 
       const options = {
         headers: {
