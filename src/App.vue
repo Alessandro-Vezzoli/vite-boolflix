@@ -38,24 +38,25 @@ export default {
   },
   methods: {
     fetchMovies() {
-      const options = {
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
-        },
-      };
-
       const listPopular = `${this.url}/movie/popular`;
 
       axios
-        .get(listPopular)
+        .get(listPopular, {
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
+        })
         .then((response) => {
-          console.log("ciao");
           console.log(response.data.results);
           this.cards = response.data.results;
         })
-        .catch((err) => console.error(err));
+        .catch((err) => console.log(err));
     },
     searchMovies() {
+      if (this.searchText.trim() === "") {
+        this.fetchMovies();
+        return;
+      }
       const searchUrl = `${this.url}/search/movie?query=${this.searchText}`;
       console.log(searchUrl);
 
