@@ -18,8 +18,13 @@
     }})<br />
     Lingua: {{ getFlag(card.original_language) }}
     <br />
-
-    Voto: {{ card.vote_average }} <br /><br />
+    <div>
+      Voto::
+      <template v-for="star in getStars(card.vote_average)">
+        <span class="star">&#9733;</span>
+      </template>
+    </div>
+    <br /><br />
   </main>
 
   <footer class="bg-color-black">
@@ -80,6 +85,13 @@ export default {
         })
         .catch((err) => console.log(err));
     },
+    getStars(voto) {
+      const votoArrotondato = Math.round(voto);
+      const votoMappato = Math.min(Math.max(votoArrotondato, 1), 10);
+      const stelle = Math.ceil(votoMappato / 2);
+
+      return stelle;
+    },
   },
 };
 </script>
@@ -139,5 +151,9 @@ footer {
   padding: 8px 16px;
   border: none;
   cursor: pointer;
+}
+.star {
+  color: #ffc107;
+  font-size: 18px;
 }
 </style>
