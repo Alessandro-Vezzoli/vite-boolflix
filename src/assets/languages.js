@@ -143,10 +143,10 @@ const languages = [
 ];
 
 function getFlag(lan) {
+  lan = lan.trim();
   const langEmoji = languages.find(
     (x) => x.langCode == lan || x.countryCode == lan
   );
-  console.log(langEmoji);
   if (langEmoji) {
     return langEmoji.emoji;
   } else {

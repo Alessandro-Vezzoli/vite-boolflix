@@ -14,7 +14,7 @@
   <main v-for="card in cards">
     Titolo film: {{ card.title }}<br />
     Titolo originale film: ({{ card.original_title }})<br />
-    Lingua: {{ flag(card.original_language) }}
+    Lingua: {{ getFlag(card.original_language) }}
     <br />
 
     Voto: {{ card.vote_average }} <br /><br />
@@ -27,7 +27,7 @@
 <script>
 import axios from "axios";
 import { apiKey, bearerToken } from "./config.js";
-import { getFlag } from "./assets/l.js";
+import { getFlag } from "./assets/languages.js";
 export default {
   data() {
     return {
@@ -56,9 +56,7 @@ export default {
         })
         .catch((err) => console.log(err));
     },
-    flag(lan) {
-      return getFlag(lan.trim());
-    },
+    getFlag,
     searchMovies() {
       if (this.searchText.trim() === "") {
         this.fetchMovies();
