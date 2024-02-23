@@ -10,14 +10,11 @@
     <input type="text" placeholder="Cerca film..." v-model="searchText" />
     <button @click="searchMovies">Cerca</button>
   </div>
-  <flag iso="it" />
-  <flag iso="it" />
 
   <main v-for="card in cards">
     Titolo film: {{ card.title }}<br />
     Titolo originale film: ({{ card.original_title }})<br />
-    Lingua: {{ card.original_language }}
-    <flag-icon :iso="getCountryCode(card.original_language)" />
+    Lingua: {{ flag(card.original_language) }}
     <br />
 
     Voto: {{ card.vote_average }} <br /><br />
@@ -30,7 +27,7 @@
 <script>
 import axios from "axios";
 import { apiKey, bearerToken } from "./config.js";
-
+import { getFlag } from "./assets/l.js";
 export default {
   data() {
     return {
@@ -55,8 +52,12 @@ export default {
         .then((response) => {
           console.log(response.data.results);
           this.cards = response.data.results;
+          console.log(this.cards);
         })
         .catch((err) => console.log(err));
+    },
+    flag(lan) {
+      return getFlag(lan.trim());
     },
     searchMovies() {
       if (this.searchText.trim() === "") {
@@ -77,12 +78,6 @@ export default {
           this.cards = response.data.results;
         })
         .catch((err) => console.log(err));
-    },
-    getCountryCode(languageCode) {
-      const country = languageCodes.getAlpha2Code(languageCode);
-      console.log("Language Code:", languageCode);
-      console.log("Country Code:", country);
-      return country || "unknown";
     },
   },
 };
