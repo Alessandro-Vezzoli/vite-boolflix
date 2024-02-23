@@ -12,8 +12,10 @@
   </div>
 
   <main v-for="card in cards">
-    Titolo film: {{ card.title }}<br />
-    Titolo originale film: ({{ card.original_title }})<br />
+    Titolo film: {{ card.title || card.name }} <br />
+    Titolo originale film: ({{
+      card.original_title || card.original_name
+    }})<br />
     Lingua: {{ getFlag(card.original_language) }}
     <br />
 
@@ -62,7 +64,8 @@ export default {
         this.fetchMovies();
         return;
       }
-      const searchUrl = `${this.url}/search/movie?query=${this.searchText}`;
+
+      const searchUrl = `${this.url}/search/movie?query=${this.searchText} && ${this.url}/search/tv?query=${this.searchText};`;
       console.log(searchUrl);
 
       axios
