@@ -2,6 +2,9 @@
   <AppHeader @search="searchMovies" />
   <main>
     <CardsGrid :cards="cards" />
+    <h1 class="text-center" v-if="this.cards == 0">
+      NON SONO STATI TROVATI FILM
+    </h1>
   </main>
 
   <AppFooter></AppFooter>
@@ -95,5 +98,9 @@ body {
 
 .brand-text {
   font-size: 18px;
+}
+
+.text-center {
+  text-align: center;
 }
 </style>
