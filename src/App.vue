@@ -59,7 +59,7 @@ export default {
 
       console.log(movieSearchUrl);
       console.log(searchText);
-      Promise.all([
+      get([
         axios.get(movieSearchUrl, {
           headers: { Authorization: `Bearer ${bearerToken}` },
         }),
