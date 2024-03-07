@@ -7,6 +7,9 @@
             :src="`${url_img}${card.backdrop_path || card.poster_path}`"
             alt="IMG"
           />
+          <div class="overlay-content" v-if="!showInfo">
+            <p>Rilascio: {{ card.release_date || card.first_air_date }}</p>
+          </div>
         </div>
         <div class="card-title">{{ card.title || card.name }}</div>
         <div class="card-original-title">
@@ -36,6 +39,7 @@ export default {
   data() {
     return {
       url_img: "https://image.tmdb.org/t/p/original",
+      showInfo: false,
     };
   },
   methods: {
@@ -111,6 +115,24 @@ export default {
   object-fit: cover;
 }
 
+.card:hover img {
+  filter: brightness(30%);
+}
+
+.overlay-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  color: #fff;
+  display: none;
+}
+
+.card:hover .overlay-content {
+  display: block;
+}
 .star {
   color: #ffc107;
   font-size: 18px;
